@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+    # Serviço do banco PostgreSQL
+    postgres:
+        image: postgres:16
+        container_name: postgres_db_php
+        restart: always
+        environment:
+            POSTGRES_USER: postgres
+            POSTGRES_PASSWORD: 12345
+            POSTGRES_DB: testdb
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        ports:
+            - "5433:5432" # Mapeando porta 5433 externa para 5432 interna
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        networks:
+            - laravel_network
+
+    # Serviço do Laravel
+    laravel:
+        build: .
+        container_name: laravel_app
+        restart: always
+        ports:
+            - "8000:8000" # Mapeando porta 8000 externa para 8000 interna
+        volumes:
+            - .:/var/www
+            - /var/www/vendor
+            - /var/www/node_modules
+        environment:
+            - DB_CONNECTION=pgsql
+            - DB_HOST=postgres
+            - DB_PORT=5432
+            - DB_DATABASE=testdb
+            - DB_USERNAME=postgres
+            - DB_PASSWORD=12345
+            - APP_ENV=local
+            - APP_DEBUG=true
+            - APP_KEY=base64:placeholder
+            - CACHE_DRIVER=file
+            - SESSION_DRIVER=file
+            - QUEUE_CONNECTION=sync
+            - JWT_SECRET=your-jwt-secret-here
+            - JWT_TTL=60
+        depends_on:
+            postgres:
+                condition: service_healthy
+        networks:
+            - laravel_network
+
+volumes:
+    pgdata:
+
+networks:
+    laravel_network:
+        driver: bridge
