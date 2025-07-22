@@ -1,7 +1,7 @@
 version: "3.8"
 
 services:
-    # Serviço do banco PostgreSQL
+    # Container PostgreSQL
     postgres:
         image: postgres:16
         container_name: postgres_db_php
@@ -13,26 +13,32 @@ services:
         volumes:
             - pgdata:/var/lib/postgresql/data
         ports:
-            - "5433:5432" # Mapeando porta 5433 externa para 5432 interna
+            - "5432:5432"
         healthcheck:
-            test: ["CMD-SHELL", "pg_isready -U postgres"]
+            test: ["CMD-SHELL", "pg_isready -U postgres -d testdb"]
             interval: 10s
             timeout: 5s
-            retries: 5
+            retries: 10
+            start_period: 30s
         networks:
             - laravel_network
 
-    # Serviço do Laravel
-    laravel:
-        build: .
+    # Container PHP 8 para Laravel 12
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
         container_name: laravel_app
         restart: always
-        ports:
-            - "8000:8000" # Mapeando porta 8000 externa para 8000 interna
+        working_dir: /var/www/html
         volumes:
-            - .:/var/www
-            - /var/www/vendor
-            - /var/www/node_modules
+            - .:/var/www/html
+            - ./docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+        ports:
+            - "5002:5002"
+        depends_on:
+            postgres:
+                condition: service_healthy
         environment:
             - DB_CONNECTION=pgsql
             - DB_HOST=postgres
@@ -42,20 +48,29 @@ services:
             - DB_PASSWORD=12345
             - APP_ENV=local
             - APP_DEBUG=true
-            - APP_KEY=base64:placeholder
-            - CACHE_DRIVER=file
-            - SESSION_DRIVER=file
-            - QUEUE_CONNECTION=sync
-            - JWT_SECRET=your-jwt-secret-here
-            - JWT_TTL=60
-        depends_on:
-            postgres:
-                condition: service_healthy
+            - APP_KEY=
+            - APP_URL=http://localhost:5002
         networks:
             - laravel_network
+        command: >
+            sh -c "
+              composer install --no-interaction --optimize-autoloader &&
+              php artisan config:clear &&
+              php artisan cache:clear &&
+              php artisan key:generate &&
+              echo 'Aguardando PostgreSQL...' &&
+              until pg_isready -h postgres -p 5432 -U postgres; do
+                echo 'PostgreSQL não está pronto - aguardando...'
+                sleep 2
+              done &&
+              echo 'PostgreSQL está pronto!' &&
+              php artisan migrate --force &&
+              php artisan serve --host=0.0.0.0 --port=5002
+            "
 
 volumes:
     pgdata:
+        driver: local
 
 networks:
     laravel_network:

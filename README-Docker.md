@@ -1,37 +1,67 @@
-# Configuração Docker para API Laravel
+# Docker Setup para Laravel 12 + PostgreSQL
 
-Este projeto está configurado para rodar com Docker usando PostgreSQL como banco de dados.
+Este projeto inclui uma configuração Docker completa para rodar uma aplicação Laravel 12 com PHP 8.2 e PostgreSQL 16.
 
-## Pré-requisitos
+## Estrutura dos Containers
 
--   Docker
--   Docker Compose
+-   **app**: Container PHP 8.2 com Laravel 12
+-   **postgres**: Container PostgreSQL 16
 
-## Como executar
+## Como usar
 
-1. **Construir e iniciar os containers:**
+### 1. Construir e iniciar os containers
 
-    ```bash
-    docker-compose up --build
-    ```
+```bash
+docker-compose up --build
+```
 
-2. **Acessar a aplicação:**
-    - API Laravel: http://localhost:8000
-    - Banco PostgreSQL: localhost:5433
+### 2. Acessar a aplicação
+
+A aplicação estará disponível em: http://localhost:5002
+
+### 3. Acessar o banco de dados
+
+-   **Host**: localhost
+-   **Porta**: 5432
+-   **Usuário**: postgres
+-   **Senha**: 12345
+-   **Database**: testdb
+
+### 4. Comandos úteis
+
+#### Executar comandos no container da aplicação
+
+```bash
+# Acessar o container
+docker-compose exec app bash
+
+# Executar migrations
+docker-compose exec app php artisan migrate
+
+# Executar seeders
+docker-compose exec app php artisan db:seed
+
+# Limpar cache
+docker-compose exec app php artisan cache:clear
+```
+
+#### Parar os containers
+
+```bash
+docker-compose down
+```
+
+#### Parar e remover volumes (cuidado: isso apaga o banco)
+
+```bash
+docker-compose down -v
+```
 
 ## Configurações
 
-### Banco de Dados PostgreSQL
-
--   **Host:** postgres (dentro do container) / localhost (externo)
--   **Porta:** 5432 (dentro do container) / 5433 (externo)
--   **Usuário:** postgres
--   **Senha:** 12345
--   **Database:** testdb
-
 ### Variáveis de Ambiente
 
-As seguintes variáveis estão configuradas no docker-compose.yml:
+As variáveis de ambiente estão configuradas no `docker-compose.yml`:
 
 -   `DB_CONNECTION=pgsql`
 -   `DB_HOST=postgres`
@@ -40,45 +70,36 @@ As seguintes variáveis estão configuradas no docker-compose.yml:
 -   `DB_USERNAME=postgres`
 -   `DB_PASSWORD=12345`
 
-## Comandos úteis
+### Portas
 
-### Parar os containers:
+-   **Aplicação Laravel**: 5002
+-   **PostgreSQL**: 5432
+
+### Volumes
+
+-   Dados do PostgreSQL: `pgdata`
+-   Código da aplicação: montado do diretório atual
+
+## Troubleshooting
+
+### Se a aplicação não conectar ao banco
+
+1. Verifique se o container do PostgreSQL está saudável:
+
+    ```bash
+    docker-compose ps
+    ```
+
+2. Aguarde o healthcheck do PostgreSQL completar antes de acessar a aplicação
+
+### Se precisar reinstalar dependências
 
 ```bash
-docker-compose down
+docker-compose exec app composer install
 ```
 
-### Ver logs:
+### Se precisar regenerar chave da aplicação
 
 ```bash
-docker-compose logs -f laravel
+docker-compose exec app php artisan key:generate
 ```
-
-### Executar comandos no container:
-
-```bash
-docker-compose exec laravel php artisan migrate
-docker-compose exec laravel php artisan tinker
-```
-
-### Acessar o banco de dados:
-
-```bash
-docker-compose exec postgres psql -U postgres -d testdb
-```
-
-## Estrutura dos Containers
-
--   **laravel_app:** Container da aplicação Laravel (porta 8000)
--   **postgres_db_php:** Container do PostgreSQL (porta 5433)
-
-## Script de Inicialização
-
-O container Laravel executa automaticamente:
-
-1. Aguarda o banco de dados estar pronto
-2. Copia o arquivo .env.example se necessário
-3. Gera a APP_KEY se necessário
-4. Limpa o cache
-5. Executa as migrações
-6. Inicia o servidor Laravel

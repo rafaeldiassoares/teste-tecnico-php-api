@@ -1,4 +1,4 @@
-FROM php:8.2-fpm
+FROM php:8.2-cli
 
 # Instalar dependências do sistema
 RUN apt-get update && apt-get install -y \
@@ -7,33 +7,29 @@ RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
-    libzip-dev \
     zip \
     unzip \
-    libpq-dev \
-    && docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd zip
+    postgresql-client \
+    libpq-dev
+
+# Limpar cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Instalar extensões PHP
+RUN docker-php-ext-install pdo pdo_pgsql mbstring exif pcntl bcmath gd
 
 # Instalar Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Definir diretório de trabalho
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # Copiar arquivos do projeto
-COPY . /var/www
+COPY . /var/www/html
 
-# Instalar dependências do PHP
-RUN composer install --no-dev --optimize-autoloader
+# Definir permissões
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 755 /var/www/html
 
-# Configurar permissões
-RUN chown -R www-data:www-data /var/www \
-    && chmod -R 755 /var/www/storage \
-    && chmod -R 755 /var/www/bootstrap/cache \
-    && chmod +x /var/www/start.sh \
-    && chown www-data:www-data /var/www/start.sh
-
-# Expor porta 9000 para PHP-FPM
-EXPOSE 9000
-
-# Comando para iniciar o servidor
-CMD ["/var/www/start.sh"]
+# Expor porta
+EXPOSE 5002
