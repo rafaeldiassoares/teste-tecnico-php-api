@@ -176,7 +176,7 @@ Gerencia os endereços dos clientes com autenticação obrigatória.
 ### 1. Clone o repositório
 
 ```bash
-git clone <url-do-repositorio>
+git clone git@github.com:rafaeldiassoares/teste-tecnico-php-api.git
 cd php-api
 ```
 
@@ -261,16 +261,6 @@ php artisan test --filter=UserControllerTest
 php artisan test --coverage
 ```
 
-### Cobertura de Testes
-
-O projeto possui testes unitários e de integração cobrindo:
-
--   Controllers (User, Customer, Address)
--   Models
--   Services
--   Middlewares
--   Validações
-
 ## 📚 Documentação
 
 ### Swagger UI
@@ -302,16 +292,6 @@ php artisan l5-swagger:generate
 -   **PostgreSQL**: Porta 5432
 -   **Volumes**: Persistência de dados
 
-### Configurações PHP
-
-```ini
-upload_max_filesize=40M
-post_max_size=40M
-memory_limit=512M
-max_execution_time=600
-max_input_vars=3000
-```
-
 ### Comandos Docker
 
 ```bash
@@ -330,31 +310,6 @@ docker-compose logs -f app
 # Acessar container
 docker-compose exec app bash
 ```
-
-## 🔧 Configurações Específicas
-
-### JWT Configuration
-
-O projeto utiliza `tymon/jwt-auth` para autenticação JWT com configurações otimizadas:
-
--   Algoritmo: HS256
--   Tempo de vida do token: Configurável
--   Refresh tokens: Suportado
-
-### Logging
-
-Sistema de logs estruturados com formatação personalizada:
-
--   Logs de API com middleware dedicado
--   Formatação JSON para logs estruturados
--   Rotação automática de logs
-
-### Database
-
--   PostgreSQL como banco principal
--   Migrações automáticas no Docker
--   Seeders para dados de teste
--   Factories para geração de dados
 
 ## 📝 Estrutura de Resposta da API
 
@@ -381,26 +336,3 @@ Sistema de logs estruturados com formatação personalizada:
     }
 }
 ```
-
-## 🤝 Contribuição
-
-1. Fork o projeto
-2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 👨‍💻 Autor
-
-**Rafael Dias Soares**
-
--   GitHub: [@rafaeldiassoares](https://github.com/rafaeldiassoares)
--   LinkedIn: [Rafael Dias Soares](https://linkedin.com/in/rafaeldiassoares)
-
----
-
-⭐ Se este projeto te ajudou, considere dar uma estrela no repositório!
