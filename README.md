@@ -1,61 +1,406 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# 🚀 PHP Laravel API - Sistema de Gerenciamento de Usuários, Clientes e Endereços
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+API REST desenvolvida em PHP com Laravel para o teste técnico da empresa Einstein, implementando um sistema completo de gerenciamento de usuários, clientes e endereços com foco em qualidade de código, arquitetura escalável e boas práticas.
 
-## About Laravel
+## 🎯 Objetivo
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Desenvolver uma API REST robusta e escalável que atenda aos requisitos do teste técnico, demonstrando proficiência em:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+-   **Clean Code e princípios SOLID**
+-   **Arquitetura MVC do Laravel**
+-   **Autenticação JWT**
+-   **Tratamento de exceções**
+-   **Logs estruturados**
+-   **Testes automatizados**
+-   **Documentação via Swagger**
+-   **Containerização com Docker**
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 🛠️ Tecnologias Utilizadas
 
-## Learning Laravel
+### Core Technologies
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+-   **PHP 8.2+**: Linguagem de programação server-side
+-   **Laravel 12**: Framework PHP moderno e robusto
+-   **PostgreSQL 16**: Banco de dados relacional robusto e escalável
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Authentication & Security
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+-   **JWT (tymon/jwt-auth)**: Autenticação baseada em tokens
+-   **Laravel Sanctum**: Sistema de autenticação API
+-   **Hash**: Criptografia de senhas nativa do Laravel
 
-## Laravel Sponsors
+### Validation & Documentation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+-   **Laravel Form Requests**: Validação de dados de entrada
+-   **L5-Swagger**: Documentação interativa da API
+-   **OpenAPI/Swagger**: Especificação de API
 
-### Premium Partners
+### Testing
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+-   **PHPUnit**: Framework de testes unitários
+-   **Laravel Testing**: Testes de integração HTTP
+-   **Faker**: Geração de dados de teste
 
-## Contributing
+### Development Tools
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+-   **Laravel Sail**: Ambiente Docker para desenvolvimento
+-   **Laravel Pint**: Formatação de código
+-   **Laravel Pail**: Visualização de logs em tempo real
 
-## Code of Conduct
+## 🏗️ Arquitetura do Projeto
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+O projeto segue a arquitetura MVC do Laravel com organização em camadas bem definidas:
 
-## Security Vulnerabilities
+```
+app/
+├── Http/
+│   ├── Controllers/     # Camada de controle - endpoints da API
+│   ├── Middleware/      # Middlewares personalizados
+│   └── Requests/        # Validação de dados de entrada
+├── Models/              # Camada de modelo - Eloquent ORM
+├── Services/            # Camada de serviços - lógica de negócio
+├── Exceptions/          # Tratamento de exceções customizadas
+└── Logging/             # Sistema de logs estruturados
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Princípios SOLID Aplicados
 
-## License
+-   **S** - **Single Responsibility**: Cada classe tem uma responsabilidade única
+-   **O** - **Open/Closed**: Extensível sem modificação do código existente
+-   **L** - **Liskov Substitution**: Interfaces bem definidas
+-   **I** - **Interface Segregation**: Interfaces específicas para cada necessidade
+-   **D** - **Dependency Inversion**: Injeção de dependência
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## 📊 Modelo de Dados
+
+### Diagrama do Banco de Dados
+
+```sql
+users
+├── id (PK, autoincrement)
+├── name (varchar, obrigatório)
+├── email (varchar, unique, obrigatório)
+├── password (varchar, obrigatório)
+├── created_at (timestamp)
+└── updated_at (timestamp)
+
+customers
+├── id (PK, autoincrement)
+├── name (varchar, obrigatório)
+├── email (varchar, unique, obrigatório)
+├── cpf (varchar, unique, obrigatório)
+├── created_at (timestamp)
+└── updated_at (timestamp)
+
+addresses
+├── id (PK, autoincrement)
+├── customer_id (FK → customers.id)
+├── address (varchar, obrigatório)
+├── number (varchar, obrigatório)
+├── complement (varchar, nullable)
+├── zip_code (varchar, obrigatório)
+├── created_at (timestamp)
+└── updated_at (timestamp)
+```
+
+## 🔐 Autenticação e Segurança
+
+### JWT Authentication
+
+-   Tokens JWT para autenticação de usuários
+-   Middleware de autenticação em rotas protegidas
+-   Validação automática de tokens em requisições
+-   Configuração via `tymon/jwt-auth`
+
+### Validação de Dados
+
+-   Form Requests para validação de entrada
+-   Validação de CPF único e válido
+-   Validação de email único e formato
+-   Senhas com mínimo 8 caracteres (letras e números)
+
+### Tratamento de Exceções
+
+-   Sistema global de tratamento de erros
+-   Exceções customizadas por tipo de erro
+-   Logs estruturados com formatação personalizada
+
+## 📋 Endpoints da API
+
+### 🔑 UserController
+
+Gerencia os usuários do sistema com autenticação JWT.
+
+| Método | Rota           | Descrição                     | Autenticação |
+| ------ | -------------- | ----------------------------- | ------------ |
+| POST   | `/users`       | Cadastrar novo usuário        | ✅           |
+| PATCH  | `/users/{id}`  | Atualizar usuário             | ✅           |
+| DELETE | `/users/{id}`  | Deletar usuário               | ✅           |
+| POST   | `/users/login` | Realizar login                | ❌           |
+| GET    | `/users/{id}`  | Buscar usuário por ID         | ✅           |
+| GET    | `/users`       | Listar usuários com paginação | ✅           |
+
+### 👥 CustomerController
+
+Gerencia os clientes da aplicação com autenticação obrigatória.
+
+| Método | Rota              | Descrição                     | Autenticação |
+| ------ | ----------------- | ----------------------------- | ------------ |
+| POST   | `/customers`      | Cadastrar novo cliente        | ✅           |
+| PATCH  | `/customers/{id}` | Atualizar cliente             | ✅           |
+| DELETE | `/customers/{id}` | Deletar cliente               | ✅           |
+| GET    | `/customers/{id}` | Buscar cliente por ID         | ✅           |
+| GET    | `/customers`      | Listar clientes com endereços | ✅           |
+
+### 🏠 CustomerAddressController
+
+Gerencia os endereços dos clientes com autenticação obrigatória.
+
+| Método | Rota                                     | Descrição          | Autenticação |
+| ------ | ---------------------------------------- | ------------------ | ------------ |
+| POST   | `/customers/{customerId}/addresses`      | Cadastrar endereço | ✅           |
+| PATCH  | `/customers/{customerId}/addresses/{id}` | Atualizar endereço | ✅           |
+| DELETE | `/customers/{customerId}/addresses/{id}` | Deletar endereço   | ✅           |
+| GET    | `/customers/{customerId}/addresses/{id}` | Buscar endereço    | ✅           |
+| GET    | `/customers/{customerId}/addresses`      | Listar endereços   | ✅           |
+
+## 🚀 Instalação e Execução
+
+### Pré-requisitos
+
+-   PHP 8.2+
+-   Composer
+-   Docker e Docker Compose
+-   PostgreSQL (opcional para desenvolvimento local)
+
+### 1. Clone o repositório
+
+```bash
+git clone <url-do-repositorio>
+cd php-api
+```
+
+### 2. Instalação das dependências
+
+```bash
+composer install
+```
+
+### 3. Configuração do ambiente
+
+```bash
+# Copie o arquivo de exemplo
+cp .env.example .env
+
+# Configure as variáveis de ambiente
+DB_CONNECTION=pgsql
+DB_HOST=postgres
+DB_PORT=5432
+DB_DATABASE=testdb
+DB_USERNAME=postgres
+DB_PASSWORD=12345
+JWT_SECRET=sua-chave-secreta-aqui
+APP_ENV=local
+APP_DEBUG=true
+```
+
+### 4. Execução com Docker (Recomendado)
+
+```bash
+# Construir e executar todos os serviços
+docker-compose up --build
+
+# A API estará disponível em: http://localhost:5002
+# Documentação Swagger: http://localhost:5002/api/documentation
+```
+
+### 5. Execução local (Desenvolvimento)
+
+```bash
+# Gerar chave da aplicação
+php artisan key:generate
+
+# Gerar chave JWT
+php artisan jwt:secret
+
+# Executar migrações
+php artisan migrate
+
+# Executar seeders (dados iniciais)
+php artisan db:seed
+
+# Iniciar servidor de desenvolvimento
+php artisan serve
+```
+
+### 6. Comandos de Desenvolvimento
+
+```bash
+# Executar todos os comandos de desenvolvimento
+composer run dev
+
+# Formatar código
+./vendor/bin/pint
+
+# Executar testes
+composer test
+```
+
+## 🧪 Testes
+
+### Executar testes
+
+```bash
+# Executar todos os testes
+php artisan test
+
+# Executar testes específicos
+php artisan test --filter=UserControllerTest
+
+# Executar testes com cobertura
+php artisan test --coverage
+```
+
+### Cobertura de Testes
+
+O projeto possui testes unitários e de integração cobrindo:
+
+-   Controllers (User, Customer, Address)
+-   Models
+-   Services
+-   Middlewares
+-   Validações
+
+## 📚 Documentação
+
+### Swagger UI
+
+Acesse a documentação interativa da API:
+
+```
+http://localhost:5002/api/documentation
+```
+
+### Gerar Documentação
+
+```bash
+# Gerar documentação Swagger
+php artisan l5-swagger:generate
+```
+
+## 🐳 Docker
+
+### Estrutura Docker
+
+-   **Dockerfile**: Configuração da imagem PHP Laravel
+-   **docker-compose.yml**: Orquestração dos serviços
+-   **docker/php/local.ini**: Configurações PHP personalizadas
+
+### Serviços Docker
+
+-   **Laravel App**: Porta 5002
+-   **PostgreSQL**: Porta 5432
+-   **Volumes**: Persistência de dados
+
+### Configurações PHP
+
+```ini
+upload_max_filesize=40M
+post_max_size=40M
+memory_limit=512M
+max_execution_time=600
+max_input_vars=3000
+```
+
+### Comandos Docker
+
+```bash
+# Construir e executar
+docker-compose up --build
+
+# Executar em background
+docker-compose up -d
+
+# Parar serviços
+docker-compose down
+
+# Visualizar logs
+docker-compose logs -f app
+
+# Acessar container
+docker-compose exec app bash
+```
+
+## 🔧 Configurações Específicas
+
+### JWT Configuration
+
+O projeto utiliza `tymon/jwt-auth` para autenticação JWT com configurações otimizadas:
+
+-   Algoritmo: HS256
+-   Tempo de vida do token: Configurável
+-   Refresh tokens: Suportado
+
+### Logging
+
+Sistema de logs estruturados com formatação personalizada:
+
+-   Logs de API com middleware dedicado
+-   Formatação JSON para logs estruturados
+-   Rotação automática de logs
+
+### Database
+
+-   PostgreSQL como banco principal
+-   Migrações automáticas no Docker
+-   Seeders para dados de teste
+-   Factories para geração de dados
+
+## 📝 Estrutura de Resposta da API
+
+### Formato Padrão
+
+```json
+{
+    "status": 200,
+    "message": "Operação realizada com sucesso",
+    "data": {
+        // Dados da resposta
+    }
+}
+```
+
+### Formato de Erro
+
+```json
+{
+    "status": 422,
+    "message": "Dados inválidos",
+    "errors": {
+        "field": ["Mensagem de erro"]
+    }
+}
+```
+
+## 🤝 Contribuição
+
+1. Fork o projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## 📄 Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## 👨‍💻 Autor
+
+**Rafael Dias Soares**
+
+-   GitHub: [@rafaeldiassoares](https://github.com/rafaeldiassoares)
+-   LinkedIn: [Rafael Dias Soares](https://linkedin.com/in/rafaeldiassoares)
+
+---
+
+⭐ Se este projeto te ajudou, considere dar uma estrela no repositório!
