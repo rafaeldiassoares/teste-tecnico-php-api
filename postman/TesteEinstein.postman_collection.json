@@ -1,0 +1,1594 @@
+{
+	"info": {
+		"_postman_id": "a1fc0702-293f-49e1-921d-6fb505b4adff",
+		"name": "TesteEinstein",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15788613"
+	},
+	"item": [
+		{
+			"name": "node-api",
+			"item": [
+				{
+					"name": "UserController",
+					"item": [
+						{
+							"name": "Realizar login do usuário",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonResponse = pm.response.json(); // Use pm.response.json() instead",
+											"pm.environment.set(\"auth_token\", jsonResponse.data.token); // Corrected method for setting environment variable",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5003/users/login",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar um usuário",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"João Silva\",\n    \"email\": \"joao@teste.com\",\n    \"password\": \"password123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5003/users",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar um usuário",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"João Silva Almeida\"   \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5003/users/12",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"users",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar um usuário",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Rafael Dias\",\n    \"email\": \"user@example.com\",\n    \"password\": \"123456\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5003/users/12",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"users",
+										"12"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna um usuário",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:5003/users/2",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"users",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna uma lista de usuários",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:5003/users",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CustomerController",
+					"item": [
+						{
+							"name": "Criar um cliente",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Maria Silva\",\n    \"email\": \"maria@teste.com\",\n    \"cpf\": \"12345678910\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5003/customers/",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar um cliente",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"mariasilvadias@email.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5003/customers/7",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"customers",
+										"7"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna uma lista de clientes",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:5003/customers",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"customers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna um cliente",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:5003/customers/8",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"customers",
+										"8"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar um cliente",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5003/customers/8",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"customers",
+										"8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CustomerAddressController",
+					"item": [
+						{
+							"name": "Cadastrar endereço",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"address\": \"Rua F5\",\n    \"number\": \"4\",\n    \"complement\": \"Qd 1 lt 22\",\n    \"zipcode\": \"74000\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5003/customers/6/addresses",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"customers",
+										"6",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualiza um endereço",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"address\": \"Rua F-Cinco\",\n    \"number\": \"5\",\n    \"complement\": \"Qd 11 lt 4\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "localhost:5003/customers/1/addresses/2",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"customers",
+										"1",
+										"addresses",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna lista de endereços de um cliente",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:5003/customers/1/addresses",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"customers",
+										"1",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna um endereço",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:5003/customers/1/addresses/2",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"customers",
+										"1",
+										"addresses",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleta um endereço",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "localhost:5003/customers/1/addresses/3",
+									"host": [
+										"localhost"
+									],
+									"port": "5003",
+									"path": [
+										"customers",
+										"1",
+										"addresses",
+										"3"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "php-api",
+			"item": [
+				{
+					"name": "UserController",
+					"item": [
+						{
+							"name": "Retorna uma lista de usuarios",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5002/api/users/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna um usuário",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5002/api/users/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"users",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar um usuário",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5002/api/users/3",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"users",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar um usuário",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"João Silva\",\n    \"email\": \"joao@teste.com\",\n    \"password\": \"password123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5002/api/users/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar um usuário",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"João Silva Almeida\"   \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5002/api/users/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"users",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Realiza login do usuário",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonResponse = pm.response.json(); // Use pm.response.json() instead",
+											"pm.environment.set(\"php_auth_token\", jsonResponse.data.token); // Corrected method for setting environment variable",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"password\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5002/api/users/login",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"users",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CustomerController",
+					"item": [
+						{
+							"name": "Cria um cliente",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Maria Silva\",\n    \"email\": \"maria@teste.com\",\n    \"cpf\": \"12345678910\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5002/api/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna uma lista de clientes",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5002/api/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna um cliente",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5002/api/customers/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar um cliente",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5002/api/customers/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"customers",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar um cliente",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"mariasilvadias@email.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5002/api/customers/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CustomerAddressController",
+					"item": [
+						{
+							"name": "Cria um endereço",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"address\": \"Rua F5\",\n    \"number\": \"4\",\n    \"complement\": \"Qd 1 lt 22\",\n    \"zipcode\": \"74000\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5002/api/customers/1/addresses",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"customers",
+										"1",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna uma lista de endereços de um cliente",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5002/api/customers/1/addresses",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"customers",
+										"1",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna um endereço",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5002/api/customers/1/addresses/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"customers",
+										"1",
+										"addresses",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar um endereço",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5002/api/customers/1/addresses/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"customers",
+										"1",
+										"addresses",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualiza um endereço",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"address\": \"Rua F-Cinco\",\n    \"number\": \"5\",\n    \"complement\": \"Qd 11 lt 4\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5002/api/customers/1/addresses/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5002",
+									"path": [
+										"api",
+										"customers",
+										"1",
+										"addresses",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "dotnet-api",
+			"item": [
+				{
+					"name": "UserController",
+					"item": [
+						{
+							"name": "Retorna uma lista de usuarios",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5001/users/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna um usuário",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5001/users/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar um usuário",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5001/users/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Criar um usuário",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"João Silva\",\n    \"email\": \"joao@teste.com\",\n    \"password\": \"password123\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5001/users/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar um usuário Copy",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"João Silva Almeida\"   \n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5001/users/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"users",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CustomerController",
+					"item": [
+						{
+							"name": "Cria um cliente",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"Maria Silva\",\n    \"email\": \"maria@teste.com\",\n    \"cpf\": \"12345678910\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5001/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna uma lista de clientes",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5001/customers/",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"customers",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna um cliente",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5001/customers/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar um cliente",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5001/customers/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"customers",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualizar um cliente",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"mariasilvadias@email.com\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5001/customers/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"customers",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "CustomerAddressController",
+					"item": [
+						{
+							"name": "Cria um endereço",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"address\": \"Rua F5\",\n    \"number\": \"4\",\n    \"complement\": \"Qd 1 lt 22\",\n    \"zipcode\": \"74000\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5001/customers/1/addresses",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"customers",
+										"1",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna uma lista de endereços de um cliente",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5001/customers/1/addresses",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"customers",
+										"1",
+										"addresses"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Retorna um endereço",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5001/customers/1/addresses/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"customers",
+										"1",
+										"addresses",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deletar um endereço",
+							"request": {
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:5001/customers/1/addresses/2",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"customers",
+										"1",
+										"addresses",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Atualiza um endereço",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer {{php_auth_token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"address\": \"Rua F-Cinco\",\n    \"number\": \"5\",\n    \"complement\": \"Qd 11 lt 4\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:5001/customers/1/addresses/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "5001",
+									"path": [
+										"customers",
+										"1",
+										"addresses",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
